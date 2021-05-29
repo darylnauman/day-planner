@@ -79,12 +79,31 @@ function createRows() {
 }
 
 function colorRowDescription() {
-    for (var i = 0; i < schedule.length; i++) {
-        // set background color of row planner description textbox
-        // plannerDescriptionEl.addClass('past');
-        // plannerDescriptionEl.addClass('present');
-        // plannerDescriptionEl.addClass('future');
-    };
+    
+    // $("#root").children().find('textarea').addClass('past'); // past
+    // $("#root").children().find('textarea').addClass('present'); // present
+    // $("#root").children().find('textarea').addClass('future'); // future
+
+    // rootEl.children('textarea').css('background-color', 'blue');
+
+    // $("#root").children().eq(2).find('textarea').addClass('present'); // WORKS!
+    
+
+
+    // for (var i = 0; i < schedule.length; i++) {
+        
+    //     if (// schedule array time < current time ) {
+    //         $("#root").children(i).find('textarea').addClass('past');    
+    //     } else if (// schedule array time is at same hour) {
+    //         $("#root").children(i).find('textarea').addClass('present');
+    //     } else {
+    //         $("#root").children(i).find('textarea').addClass('future');    
+    //     }
+    // };
+
+    // $("#root").children().eq(5).find('textarea').removeClass('future present');
+    // $("#root").children().eq(5).find('textarea').addClass('past');
+
     return;
 }
 
@@ -112,5 +131,5 @@ colorRowDescription();
 
 $("button").on('click', saveDescription);
 
-// timeBlocksEl = rootEl.find('.textarea').addClass('future');
+
 // https://momentjs.com/docs/#/displaying/difference/
