@@ -6,43 +6,44 @@ $("#currentDay").text(currentDate);
 
 var schedule = [
     {
-        time: '9am',
+        time: '9 AM',
         description: ''
     },
     {
-        time: '10am',
+        time: '10 AM',
         description: ''
     },
     {
-        time: '11am',
+        time: '11 AM',
         description: ''
     },
     {
-        time: '12pm',
+        time: '12 PM',
         description: ''
     },
     {
-        time: '1pm',
+        time: '1 PM',
         description: ''
     },
     {
-        time: '2pm',
+        time: '2 PM',
         description: ''
     },
     {
-        time: '3pm',
+        time: '3 PM',
         description: ''
     },
     {
-        time: '4pm',
+        time: '4 PM',
         description: ''
     },
     {
-        time: '5pm',
+        time: '5 PM',
         description: ''
     }
 ];
 
+// Check localStorage for schedule information, if present assign it to schedule array otherwise use schedule array provided
 function init() {
     schedule = JSON.parse(localStorage.getItem("schedule")) || schedule;
     return;
@@ -79,27 +80,29 @@ function createRows() {
 }
 
 function colorRowDescription() {
+       
+    var todayHour = moment().format('HH');
+    todayHour = parseInt(todayHour);
+    console.log(todayHour);  
     
-    // $("#root").children().find('textarea').addClass('past'); // past
-    // $("#root").children().find('textarea').addClass('present'); // present
-    // $("#root").children().find('textarea').addClass('future'); // future
-
-    // rootEl.children('textarea').css('background-color', 'blue');
-
-    // $("#root").children().eq(2).find('textarea').addClass('present'); // WORKS!
-    
-
-
-    // for (var i = 0; i < schedule.length; i++) {
+    for (var i = 0; i < schedule.length; i++) {
         
-    //     if (// schedule array time < current time ) {
-    //         $("#root").children(i).find('textarea').addClass('past');    
-    //     } else if (// schedule array time is at same hour) {
-    //         $("#root").children(i).find('textarea').addClass('present');
-    //     } else {
-    //         $("#root").children(i).find('textarea').addClass('future');    
-    //     }
-    // };
+        var scheduleBlockHour = moment(schedule[i].time, 'ha').format('HH');
+        scheduleBlockHour = parseInt(scheduleBlockHour);
+        console.log(`Schedule block hour: ${scheduleBlockHour}`);
+
+        console.log(scheduleBlockHour - todayHour);
+
+        // $("#root").children().eq(3).find('textarea').addClass('present');    
+
+        if (scheduleBlockHour < todayHour) {
+            $("#root").children().eq(i).find('textarea').addClass('past');    
+        } else if (scheduleBlockHour === todayHour) {
+            $("#root").children().eq(i).find('textarea').addClass('present');
+        } else {
+            $("#root").children().eq(i).find('textarea').addClass('future');    
+        };
+    };
 
     // $("#root").children().eq(5).find('textarea').removeClass('future present');
     // $("#root").children().eq(5).find('textarea').addClass('past');
@@ -129,6 +132,7 @@ init();
 createRows();
 colorRowDescription();
 
+// Event listener on all button elements
 $("button").on('click', saveDescription);
 
 
