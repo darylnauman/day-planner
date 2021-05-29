@@ -7,7 +7,7 @@ The focus of this homework assignment for the University of Toronto SCS Coding B
 - jQuery event listener is used to identify when a save button is clicked by the user
 - jQuery traverses the DOM and identifies the time block row that the button is in which the user wishes to save the data from
 - Details of hourly scheduled events are saved to localStorage with the help of JSON and populate the day planner when the page is reloaded 
-- No new elments were created within the starter HTML file, rather jQuery was used to create elements including rows and columns within them for time of day, event description and a save button
+- No new elements were created within the starter HTML file, rather jQuery was used to create elements including rows and columns within them for time of day, event description and a save button
 - The Bootstrap grid is used to set the width of each column within the time block rows
 - Time block rows' text areas are colored based on if they are in the past, present or future which is done through use of Moment.js, jQuery DOM traversal and the jQuery method to add a CSS class.
 
