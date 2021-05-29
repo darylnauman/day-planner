@@ -49,6 +49,7 @@ function init() {
     return;
 }
 
+// Create the time block rows of the day planner with text and classes
 function createRows() {
     for (var i = 0; i < schedule.length; i++) {
 
@@ -66,35 +67,32 @@ function createRows() {
 
         // create second column within row - provides text area that can show description of any events, color set if past, present, future
         var plannerDescriptionEl = $('<textarea>');
-        plannerDescriptionEl.addClass('col-10 textarea');
-        plannerDescriptionEl.attr('name', 'eventDescription')
-        plannerDescriptionEl.text(schedule[i].description)
+        plannerDescriptionEl.addClass('col-10 description textarea');
+        plannerDescriptionEl.attr('name', 'eventDescription');
+        plannerDescriptionEl.text(schedule[i].description);
         rowEl.append(plannerDescriptionEl);
 
         // create third column with row - provides a button to click to save text entered into to localStorage
         var plannerSaveButtonEl = $('<button>');
-        plannerSaveButtonEl.addClass('col-1 saveBtn fa fa-lock');
+        plannerSaveButtonEl.addClass('col-1 saveBtn fas fa-lock');
         rowEl.append(plannerSaveButtonEl);
     };
     return;
 }
 
+// Color row text areas depending on if they are in the past, present or future
 function colorRowDescription() {
-       
+
+    // get current hour of today to compare against time listed for each time block
     var todayHour = moment().format('HH');
     todayHour = parseInt(todayHour);
-    console.log(todayHour);  
     
+
     for (var i = 0; i < schedule.length; i++) {
         
         var scheduleBlockHour = moment(schedule[i].time, 'ha').format('HH');
         scheduleBlockHour = parseInt(scheduleBlockHour);
-        console.log(`Schedule block hour: ${scheduleBlockHour}`);
-
-        console.log(scheduleBlockHour - todayHour);
-
-        // $("#root").children().eq(3).find('textarea').addClass('present');    
-
+        
         if (scheduleBlockHour < todayHour) {
             $("#root").children().eq(i).find('textarea').addClass('past');    
         } else if (scheduleBlockHour === todayHour) {
@@ -103,14 +101,10 @@ function colorRowDescription() {
             $("#root").children().eq(i).find('textarea').addClass('future');    
         };
     };
-
-    // $("#root").children().eq(5).find('textarea').removeClass('future present');
-    // $("#root").children().eq(5).find('textarea').addClass('past');
-
     return;
 }
 
-// on save button click update event description in schedule array & update localStorage
+// Update event description in schedule array & localStorage
 function saveDescription(event) {
     var buttonEl = event.target;
     var descriptionEl = $(buttonEl).parent().find('textarea');
@@ -120,7 +114,7 @@ function saveDescription(event) {
         if (schedule[i].time === $(buttonEl).parent().attr('id')) {
             schedule[i].description = description;
         }
-    };
+    }; 
     
     // send revised schedule to localStorage
     localStorage.setItem("schedule", JSON.stringify(schedule));
@@ -134,6 +128,3 @@ colorRowDescription();
 
 // Event listener on all button elements
 $("button").on('click', saveDescription);
-
-
-// https://momentjs.com/docs/#/displaying/difference/
