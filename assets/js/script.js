@@ -4,8 +4,6 @@ var rootEl = $('#root');
 var currentDate = moment().format("dddd, MMM Do")
 $("#currentDay").text(currentDate);
 
-
-
 var schedule = [
     {
         time: '9am',
@@ -71,6 +69,7 @@ function createRows() {
         plannerSaveButtonEl.addClass('col-1 saveBtn fa fa-lock');
         rowEl.append(plannerSaveButtonEl);
     };
+    return;
 }
 
 function colorRowDescription() {
@@ -80,26 +79,29 @@ function colorRowDescription() {
         // plannerDescriptionEl.addClass('present');
         // plannerDescriptionEl.addClass('future');
     };
+    return;
 }
 
 function saveDescription(event) {
     var buttonEl = event.target;
     var descriptionEl = $(buttonEl).parent().find('textarea');
     var description = descriptionEl.val();
-
-    // $(buttonEl).parent().find('textarea').css("background-color","red");
-    
-    console.log(buttonEl);
-    console.log(description);
-    console.log($(buttonEl).parent().attr('id'));
+ 
+    // console.log(buttonEl);
+    // console.log(description);
+    // console.log($(buttonEl).parent().attr('id'));
 
     for (var i=0; i < schedule.length; i++) {
         if (schedule[i].time === $(buttonEl).parent().attr('id')) {
             schedule[i].description = description;
         }
     };
-    // $('input[name="eventDescription"]');
-};
+    
+    localStorage.setItem("schedule", JSON.stringify(schedule));
+
+    return;
+
+}
 
 createRows();
 colorRowDescription();
