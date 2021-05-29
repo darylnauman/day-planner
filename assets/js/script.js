@@ -43,6 +43,11 @@ var schedule = [
     }
 ];
 
+function init() {
+    schedule = JSON.parse(localStorage.getItem("schedule")) || schedule;
+    return;
+}
+
 function createRows() {
     for (var i = 0; i < schedule.length; i++) {
 
@@ -62,6 +67,7 @@ function createRows() {
         var plannerDescriptionEl = $('<textarea>');
         plannerDescriptionEl.addClass('col-10 textarea');
         plannerDescriptionEl.attr('name', 'eventDescription')
+        plannerDescriptionEl.text(schedule[i].description)
         rowEl.append(plannerDescriptionEl);
 
         // create third column with row - provides a button to click to save text entered into to localStorage
@@ -82,14 +88,11 @@ function colorRowDescription() {
     return;
 }
 
+// on save button click update event description in schedule array & update localStorage
 function saveDescription(event) {
     var buttonEl = event.target;
     var descriptionEl = $(buttonEl).parent().find('textarea');
     var description = descriptionEl.val();
- 
-    // console.log(buttonEl);
-    // console.log(description);
-    // console.log($(buttonEl).parent().attr('id'));
 
     for (var i=0; i < schedule.length; i++) {
         if (schedule[i].time === $(buttonEl).parent().attr('id')) {
@@ -97,28 +100,17 @@ function saveDescription(event) {
         }
     };
     
+    // send revised schedule to localStorage
     localStorage.setItem("schedule", JSON.stringify(schedule));
 
     return;
-
 }
 
+init();
 createRows();
 colorRowDescription();
 
 $("button").on('click', saveDescription);
 
-
 // timeBlocksEl = rootEl.find('.textarea').addClass('future');
-
-// var a = moment[]
-
-// var a = moment(currentDate);
-// console.log(a)
-// var b = moment()
-
-// rootEl.find('.textarea').css('background-color', 'red');
-
-// timeBlocksEl[2].addClass('future');
-
 // https://momentjs.com/docs/#/displaying/difference/
